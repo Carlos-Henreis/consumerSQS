@@ -1,0 +1,58 @@
+FROM alpine:latest
+
+USER root
+RUN apk --update add openjdk11
+RUN rm -rf /var/cache/apk/*
+
+ENV spring.profiles.active=aws
+
+# Instalação de certificados
+COPY ca_bundle.crt /usr/local/share/ca-certificates/ca_bundle.crt
+RUN update-ca-certificates
+
+COPY apicommongeracaopdf*.jar /app/apicommongeracaopdf.jar
+COPY src/main/resources/application-aws.yml /app/application.yml
+ADD src/main/resources/fonts /app/fonts
+ENTRYPOINT ["java", "-jar", "-Xms256m", "-Xmx512m", "-Duser.timezone=America/Sao_Paulo", "-Duser.language=pt-BR", "/app/apicommongeracaopdf.jar", "--server.port=8080"]
+EXPOSE 8080
+
+
+version: 0.2
+env:
+  shell: bash
+phases:
+  install:
+    runtime-versions:
+      python: "3.7"
+    commands:
+      # INSTALANDO O AWSCLI PARA EXECUCAO DOS SCRIPTS
+      - pip install --upgrade pip
+      - pip install --upgrade awscli
+      # INSTALANDO YQ PARA PARSE DO DEPLOYMENT.YAML
+      - pip install --upgrade yq
+      # DISPLAY VERSION INFORMATION FOR INSTALLED PACKAGES
+      - python -V
+      - pip -V
+      - aws --version
+      - yq --version
+  pre_build:
+    commands:
+      # LEITURA DO ARQUIVO DE IMAGEDEFINITIONS.JSON
+      - |
+        if [ ! -z "$CODEBUILD_SRC_DIR_Publishecrdev" ]; then
+          PUBLISH=$CODEBUILD_SRC_DIR_Publishecrdev
+        elif [ ! -z "$CODEBUILD_SRC_DIR_PublishDev" ]; then
+          PUBLISH=$CODEBUILD_SRC_DIR_PublishDev
+        fi
+      - export IMAGE_TAG=$(cat $PUBLISH/imagedefinitions.json | jq -r '.[].imageUri')
+      # EXECUTA ASSUME ROLE PARA A CONTA E INSTALA O KUBECTL NA VERSAO DO CLUSTER
+      - source $CODEBUILD_SRC_DIR/eks/deploy/assume_role.sh "${DevAccount}"
+  build:
+    commands:
+      - ls -la
+      # GERA OS ARQUIVOS DE DEPLOYMENT E EFETUA O DEPLOY NO CLUSTER
+      - bash $CODEBUILD_SRC_DIR_App/pipeline/eks/deploy/deploy_rollout.sh "$CODEBUILD_SRC_DIR_App/infra/parameters-dev.json"
+artifacts:
+  files:
+    - $CODEBUILD_SRC_DIR_App/infra/eks/generate_files_k8s/*
+  discard-paths: yes
