@@ -4,6 +4,31 @@ USER root
 RUN apk --update add openjdk11
 RUN rm -rf /var/cache/apk/*
 
+RUN apk --update add fontconfig ttf-dejavu
+
+ENV spring.profiles.active=aws
+
+WORKDIR /app
+
+
+COPY ocr*.jar /app/ocr.jar
+COPY src/main/resources/application.properties /app/application.properties
+COPY src/main/resources/fonts /app/fonts
+ENTRYPOINT ["java", "-jar", "-Xms256m", "-Xmx512m", "-Duser.timezone=America/Sao_Paulo", "-Duser.language=pt-BR", "/app/ocr.jar", "--server.port=8080"]
+EXPOSE 8080
+
+
+
+
+
+
+
+FROM alpine:latest
+
+USER root
+RUN apk --update add openjdk11
+RUN rm -rf /var/cache/apk/*
+
 ENV spring.profiles.active=aws
 
 # Instalação de certificados
