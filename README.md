@@ -1,3 +1,35 @@
+# 🌟 Novidade Incrível: Geração de PDF Acessível! 🌟
+
+**Agora é fácil e inclusivo!** ✨
+
+## O que há de novo?
+- Introduzimos a tão aguardada funcionalidade de **geração de PDF acessível** em nossa API.
+- Crie PDFs acessíveis em poucos cliques e torne seus documentos disponíveis para todos os usuários, independentemente de suas necessidades de acessibilidade.
+
+## Principais benefícios:
+- 📃 PDFs inclusivos: Gere documentos que atendem aos padrões de acessibilidade, tornando-os legíveis e compreensíveis para todos.
+- 🎨 Personalização fácil: Mantenha a identidade visual do seu template HTML ao gerar PDFs acessíveis.
+- 🚀 Desenvolvimento ágil: Aproveite nossa API de fácil integração e implemente a funcionalidade em questão de minutos.
+
+## Destaque: Padrão WCAG 2.1
+Nossa nova funcionalidade segue rigorosamente o padrão de acessibilidade **WCAG 2.1**, garantindo que seu conteúdo seja acessível para pessoas com deficiências visuais, auditivas e cognitivas.
+
+## Veja como funciona:
+
+![Exemplo de Geração de PDF Acessível](imagem_exemplo.png)
+
+## Chame para ação:
+Experimente agora mesmo nossa nova funcionalidade de geração de PDF acessível e aprimore a experiência dos seus usuários!
+
+**Disponível na versão 2.5.0 do nosso aplicativo/API.**
+
+Agradecemos a todos os nossos usuários pelo feedback contínuo, que nos ajudou a tornar esta funcionalidade uma realidade. Continuamos comprometidos em fornecer soluções inovadoras e acessíveis para você.
+
+Atualize agora e aproveite a novidade! 🚀
+
+
+
+
 # consumerSQS
 
 Cabeçalho Angular com Voxel.
