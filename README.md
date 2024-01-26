@@ -1,7 +1,7 @@
 # 🌟 Novidade Incrível: Geração de PDF Acessível! 🌟
 
 **Agora é fácil e inclusivo!** ✨
-
+aws dynamodb create-table --cli-input-json file://cupo_desc.json --endpoint-url=http://localhost:4566
 ## O que há de novo?
 - Introduzimos a tão aguardada funcionalidade de **geração de PDF acessível** em nossa API.
 - Crie PDFs acessíveis em poucos cliques e torne seus documentos disponíveis para todos os usuários, independentemente de suas necessidades de acessibilidade.
