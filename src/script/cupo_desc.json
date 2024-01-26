@@ -1,0 +1,31 @@
+{
+  "TableName": "cupo_desc",
+  "AttributeDefinitions": [
+    {"AttributeName": "cod_cupo_desc_coml", "AttributeType": "S"},
+    {"AttributeName": "hist_cupom", "AttributeType": "S"},
+    {"AttributeName": "cod_ent_reri", "AttributeType": "S"}
+  ],
+  "KeySchema": [
+    {"AttributeName": "cod_cupo_desc_coml", "KeyType": "HASH"},
+    {"AttributeName": "hist_cupom", "KeyType": "RANGE"}
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 5,
+    "WriteCapacityUnits": 5
+  },
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "cod_ent_reri_index",
+      "KeySchema": [
+        {"AttributeName": "cod_ent_reri", "KeyType": "HASH"}
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    }
+  ]
+}
