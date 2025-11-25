@@ -1,0 +1,6 @@
+moviepy==2.2.1
+RapidFuzz==3.14.3
+numpy==2.3.4
+requests
+lmstudio==1.5.0
+weaviate-client==4.17.0
