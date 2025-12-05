@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080" # Porta HTTP principal
+      - "50051:50051" # Porta gRPC
+    restart: on-failure
+    environment:
+      # Configurações Essenciais
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      # Configuração do Vectorizer (Nenhum neste caso, como você usa self-provided)
+      ENABLE_MODULES: ''
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      # Configurações de Memória (Recomendado para evitar problemas em ambientes menores)
+      CLUSTER_HOSTNAME: 'node1'
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+
+volumes:
+  weaviate_data:
